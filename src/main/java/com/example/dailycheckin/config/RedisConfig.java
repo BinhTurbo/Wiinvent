@@ -14,7 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     /**
-     * Cấu hình RedisTemplate
+     * RedisTemplate
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -26,17 +26,16 @@ public class RedisConfig {
     }
 
     /**
-     * Cấu hình RedissonClient để sử dụng Redis lock
+     * RedissonClient for Redis lock
      */
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        // Cấu hình kết nối Redis
         config.useSingleServer()
-                .setAddress("redis://localhost:6379") // Địa chỉ Redis
-                .setPassword(null) // Thêm mật khẩu nếu cần
-                .setConnectionPoolSize(10) // Cấu hình pool kết nối
-                .setConnectionMinimumIdleSize(2); // Số kết nối tối thiểu
+                .setAddress("redis://localhost:6379")
+                .setPassword(null)
+                .setConnectionPoolSize(10)
+                .setConnectionMinimumIdleSize(2);
         return Redisson.create(config);
     }
 }

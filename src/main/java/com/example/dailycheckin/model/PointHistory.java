@@ -26,7 +26,7 @@ public class PointHistory {
 
     public PointHistory() {
     }
-
+    // getters and setters
     public Long getId() {
         return id;
     }

@@ -39,14 +39,14 @@ public class CheckInService {
     private static final String CHECKIN_CACHE_PREFIX = "checkin-history:";
 
     /**
-     * Lấy trạng thái điểm danh của người dùng.
+     * Lấy trạng thái điểm danh.
      */
     public List<CheckIn> getCheckInStatus(Long userId) {
         return checkInRepository.findByUserId(userId);
     }
 
     /**
-     * Điểm danh với cơ chế Redis Lock.
+     * Điểm danh cơ chế Redis Lock.
      */
     @Transactional
     public String checkIn(Long userId) {
@@ -111,17 +111,17 @@ public class CheckInService {
     public Page<CheckIn> getCheckInHistory(Long userId, int page, int size) {
         String cacheKey = CHECKIN_CACHE_PREFIX + userId + ":page:" + page;
 
-        // Kiểm tra cache
+        // Kiểm tra cache.
         Page<CheckIn> cachedPage = (Page<CheckIn>) redissonClient.getBucket(cacheKey).get();
         if (cachedPage != null) {
             return cachedPage;
         }
 
-        // Nếu không có trong cache, truy vấn cơ sở dữ liệu
+        // Không có trong cache ==> truy vấn cơ sở dữ liệu.
         Pageable pageable = PageRequest.of(page, size);
         Page<CheckIn> checkInPage = checkInRepository.findByUserId(userId, pageable);
 
-        // Lưu kết quả vào cache
+        // Lưu kết quả vào cache.
         redissonClient.getBucket(cacheKey).set(checkInPage, 10, TimeUnit.MINUTES);
 
         return checkInPage;

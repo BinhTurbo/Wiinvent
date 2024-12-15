@@ -23,7 +23,7 @@ public class CheckInController {
     private CheckInService checkInService;
 
     /**
-     * API lấy trạng thái điểm danh của người dùng.
+     * Lấy trạng thái điểm danh.
      */
     @GetMapping("/{userId}")
     public List<CheckIn> getCheckInStatus(@PathVariable Long userId) {
@@ -31,7 +31,7 @@ public class CheckInController {
     }
 
     /**
-     * API điểm danh.
+     * Điểm danh.
      */
     @PostMapping("/{userId}")
     public String checkIn(@PathVariable Long userId) {
@@ -39,7 +39,7 @@ public class CheckInController {
     }
 
     /**
-     * API phân trang lịch sử điểm danh.
+     * Phân trang lịch sử điểm danh.
      */
     @GetMapping("/{userId}/history")
     public Page<CheckIn> getCheckInHistory(
@@ -50,7 +50,7 @@ public class CheckInController {
     }
 
     /**
-     * API xóa cache của người dùng.
+     * Xóa cache.
      */
     @DeleteMapping("/{userId}/cache")
     public String clearCache(@PathVariable Long userId) {
