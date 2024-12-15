@@ -1,13 +1,9 @@
 package com.example.dailycheckin.model;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -17,14 +13,14 @@ public class User {
     private Long id;
 
     private String name;
+
     private String avatar;
 
     private Integer lotusPoints = 0;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<CheckIn> checkIns;
+    public User() {
+    }
 
-    // Getters và Setters
     public Long getId() {
         return id;
     }
@@ -55,13 +51,5 @@ public class User {
 
     public void setLotusPoints(Integer lotusPoints) {
         this.lotusPoints = lotusPoints;
-    }
-
-    public List<CheckIn> getCheckIns() {
-        return checkIns;
-    }
-
-    public void setCheckIns(List<CheckIn> checkIns) {
-        this.checkIns = checkIns;
     }
 }
